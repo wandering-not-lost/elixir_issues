@@ -3,8 +3,11 @@ defmodule Issues.Mixfile do
 
   def project do
     [app: :issues,
+     escript: escript_config,
      version: "0.0.1",
      elixir: "~> 1.2",
+     name: "Issus",
+     source_url: "https://github.com/wandering-not-lost/elixir_issues",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
@@ -14,7 +17,7 @@ defmodule Issues.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger,:httpoison]]
   end
 
   # Dependencies can be Hex packages:
@@ -27,6 +30,15 @@ defmodule Issues.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:httpoison, "~> 0.8.1"},
+      {:poison, "~> 2.1"},
+      {:ex_doc, "~> 0.11.4"},
+      {:earmark, "~> 0.2.1"}
+    ]
+  end
+
+  defp escript_config do
+    [main_module: Issues.CLI]
   end
 end
